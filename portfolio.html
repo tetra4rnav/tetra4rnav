@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matt Sakamaki</title>
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600&family=Noto+Serif:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+/* Typography on top of Simple.css */
+html {
+  font-family: "Noto Sans", var(--sans-font);
+}
+h1, .lead, .proj-title {
+  font-family: "Noto Serif", var(--serif-font);
+}
+
+/* Explicit light theme when user overrides system dark */
+html[data-theme="light"] {
+  color-scheme: light;
+  --bg: #fff;
+  --accent-bg: #f5f7ff;
+  --text: #212121;
+  --text-light: #585858;
+  --border: #898ea4;
+  --accent: #0d47a1;
+  --accent-hover: #1266e2;
+  --accent-text: var(--bg);
+  --code: #d81b60;
+  --preformatted: #444;
+  --marked: #ffdd33;
+  --disabled: #efefef;
+}
+
+/* Toggle dark theme (Simple.css uses prefers-color-scheme only) */
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #212121;
+  --accent-bg: #2b2b2b;
+  --text: #dcdcdc;
+  --text-light: #ababab;
+  --accent: #ffb300;
+  --accent-hover: #ffe099;
+  --accent-text: var(--bg);
+  --code: #f06292;
+  --preformatted: #ccc;
+  --marked: #ffdd33;
+  --disabled: #111;
+}
+html[data-theme="dark"] img,
+html[data-theme="dark"] video {
+  opacity: 0.8;
+}
+
+/* Header: left-aligned title + nav (Simple defaults to centered) */
+body > header {
+  text-align: start;
+}
+.h-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  max-width: min(45rem, 90%);
+  margin: 0 auto;
+}
+h1 {
+  font-size: 2rem;
+  font-weight: 400;
+  margin: 1rem 0 0.35rem;
+}
+h1 em {
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.35rem;
+  color: var(--text-light);
+}
+.subtitle {
+  font-size: 0.88rem;
+  color: var(--text-light);
+  font-weight: 300;
+  margin: 0;
+}
+.h-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.3rem;
+}
+.h-nav a {
+  font-size: 0.82rem;
+  margin: 0;
+  padding: 0.1rem 0;
+  border: none;
+  color: var(--text-light);
+}
+.h-nav a:hover {
+  color: var(--text);
+  background: none;
+  text-decoration: underline;
+}
+.theme-btn {
+  background: none !important;
+  border: none !important;
+  color: var(--text-light) !important;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-family: inherit;
+  padding: 0 !important;
+  margin-top: 0.4rem;
+  line-height: normal;
+}
+.theme-btn:hover:enabled {
+  background: none !important;
+  border: none !important;
+  color: var(--text-light) !important;
+  text-decoration: underline;
+}
+.theme-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Section labels + prose */
+.sec {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 0;
+}
+.lead {
+  font-size: 1.15rem;
+  font-weight: 300;
+  line-height: 1.65;
+  margin-top: 1rem;
+}
+.body-text {
+  font-size: 0.93rem;
+  color: var(--text-light);
+  line-height: 1.8;
+}
+.body-text p + p {
+  margin-top: 0.85rem;
+}
+
+/* Info / interests grids */
+.grid2,
+.int-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: var(--border-width) solid var(--border);
+  margin-top: 2rem;
+}
+.cell,
+.int-item {
+  padding: 0.8rem 0;
+  border-bottom: var(--border-width) solid var(--border);
+  font-size: 0.88rem;
+}
+.cell:nth-child(odd),
+.int-item:nth-child(odd) {
+  padding-right: 2rem;
+}
+.cell:nth-child(even),
+.int-item:nth-child(even) {
+  padding-left: 2rem;
+  border-left: var(--border-width) solid var(--border);
+}
+.lbl {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 0.2rem;
+}
+.val {
+  color: var(--text);
+}
+.val small {
+  display: block;
+  color: var(--text-light);
+  font-size: 0.82rem;
+}
+
+.proj + .proj {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: var(--border-width) solid var(--border);
+}
+.proj-title {
+  font-size: 1.05rem;
+  font-weight: 400;
+  margin-bottom: 0.4rem;
+}
+.proj-desc {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  line-height: 1.75;
+  margin-bottom: 0.55rem;
+}
+.proj-meta {
+  font-size: 0.78rem;
+  color: var(--text-light);
+}
+.int-name {
+  font-weight: 400;
+}
+.int-sub {
+  color: var(--text-light);
+  font-size: 0.82rem;
+}
+
+/* Links table: lighter than default bordered table */
+.link-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+.link-table tr {
+  border-bottom: var(--border-width) solid var(--border);
+}
+.link-table tr:first-child {
+  border-top: var(--border-width) solid var(--border);
+}
+.link-table td {
+  border: none;
+  padding: 0.72rem 0;
+  background: transparent !important;
+}
+.link-table tr:nth-child(even) {
+  background: transparent !important;
+}
+.link-table td:first-child {
+  color: var(--text-light);
+  font-size: 0.78rem;
+  width: 150px;
+  padding-right: 1.5rem;
+}
+
+@media (max-width: 560px) {
+  .h-inner {
+    flex-direction: column;
+  }
+  .h-nav {
+    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.2rem;
+  }
+  .grid2,
+  .int-grid {
+    grid-template-columns: 1fr;
+  }
+  .cell:nth-child(even),
+  .int-item:nth-child(even) {
+    padding-left: 0;
+    border-left: none;
+  }
+  .link-table td:first-child {
+    width: 110px;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="h-inner">
+    <div>
+      <h1>Matt Sakamaki,MD, MPH(c) <em>酒巻 摩周</em></h1>
+      <p class="subtitle">MD &middot; MPH Candidate at Johns Hopkins Bloomberg School of Public Health</p>
+    </div>
+    <nav class="h-nav">
+      <a href="#about">About</a>
+      <a href="#research">Research</a>
+      <a href="#interests">Beyond</a>
+      <a href="#links">Links</a>
+      <button type="button" class="theme-btn" id="themeBtn" disabled aria-disabled="true" title="Light theme only. Set THEME_TOGGLE_ENABLED in the page script to re-enable.">[ dark ]</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section id="about">
+  <p class="sec">About</p>
+  <p class="lead">Physician-researcher working on structural determinants of health, causal inference, and health services utilization.</p>
+  <div class="body-text">
+    <p>Trained in internal medicine at Niigata University Hospital, I observed repeatedly that patients could not sustain care not due to cost alone, but structural and social barriers upstream. That observation pulled me toward social epidemiology and public health systems research.</p>
+    <p>At Hopkins I am developing methods-heavy work at the intersection of health services utilization, structural racism measurement, and interrupted time series design. My fieldwork has taken me to Ghana, the Philippines, and rural Japan.</p>
+  </div>
+  <div class="grid2">
+    <div class="cell">
+      <div class="lbl">Current</div>
+      <div class="val">MPH, Social Epidemiology<small>Johns Hopkins BSPH &middot; 2026</small></div>
+    </div>
+    <div class="cell">
+      <div class="lbl">Medical degree</div>
+      <div class="val">MD, Internal Medicine<small>Niigata University, Japan &middot; 2023</small></div>
+    </div>
+    <div class="cell">
+      <div class="lbl">Prior positions</div>
+      <div class="val">Niigata Prefecture &amp; City Gov.<small>Public Health Office</small></div>
+    </div>
+    <div class="cell">
+      <div class="lbl">Certifications</div>
+      <div class="val">FAA PPL ASEL &middot; JCAB 陸上単発<small>Licensed pilot, analog instruments</small></div>
+    </div>
+  </div>
+</section>
+
+<section id="research">
+  <p class="sec">Research</p>
+
+  <div class="proj">
+    <div class="proj-title">epi-atlas</div>
+    <div class="proj-desc">Open-source MCP server guiding epidemiological researchers from a research question through study design and dataset selection. Built in Python. Manuscript in preparation targeting JMIR, JAMIA, or IJE.</div>
+    <div class="proj-meta">Python &middot; MCP &middot; Open source &ensp;&middot;&ensp; <a href="https://github.com/tetra4rnav/epi-atlas" target="_blank" rel="noopener noreferrer">github.com/tetra4rnav/epi-atlas</a></div>
+  </div>
+
+  <div class="proj">
+    <div class="proj-title">Telepsychiatry and Medicaid mental health services, 2018–2024</div>
+    <div class="proj-desc">Quasi-binomial GLM interrupted time series examining telepsychiatry's share of mental health service delivery post-COVID using CMS T-MSIS Medicaid claims data.</div>
+    <div class="proj-meta">R &middot; ITS &middot; Medicaid claims &ensp;&middot;&ensp; <a href="https://github.com/tetra4rnav/JHSPH_CourseDev" target="_blank" rel="noopener noreferrer">github.com/tetra4rnav/JHSPH_CourseDev</a></div>
+  </div>
+
+  <div class="proj">
+    <div class="proj-title">Cannabis dispensary proximity and binge drinking — Baltimore City</div>
+    <div class="proj-desc">Ecological study across 194 census tracts using CDC PLACES 2025. Sequential OLS with Index of Concentration at the Extremes (ICE) structural adjustment. Approximately 95% attenuation of the crude association after full structural adjustment. Submitted to SAREP 2026.</div>
+    <div class="proj-meta">R &middot; Spatial analysis &middot; Baltimore City</div>
+  </div>
+
+  <div class="proj">
+    <div class="proj-title">Malaria vaccine communication — Ghana</div>
+    <div class="proj-desc">Community health worker workshop on RTS,S/AS01E at Ensign Global University, Kpong, April 2026. Thematic analysis of CHW worksheets (N = 32, Braun &amp; Clarke). 2nd place, JHSPH Vaccine Day Poster Competition 2026. Manuscript in preparation for GHSP Field Action Report.</div>
+    <div class="proj-meta">Global health &middot; Qualitative &middot; Ghana</div>
+  </div>
+</section>
+
+<section id="interests">
+  <p class="sec">Beyond research</p>
+  <div class="int-grid">
+    <div class="int-item">
+      <div class="int-name">Aviation</div>
+      <div class="int-sub">FAA PPL ASEL &middot; JCAB 陸上単発ピストン. Six-pack analog. VATSIM vZDC virtual ATC.</div>
+    </div>
+    <div class="int-item">
+      <div class="int-name">Jazz</div>
+      <div class="int-sub">Post-bop and modal. Miles Davis, John Coltrane, Wayne Shorter.</div>
+    </div>
+    <div class="int-item">
+      <div class="int-name">Photography</div>
+      <div class="int-sub">Travel and documentary. Iceland, Ghana, the Philippines.</div>
+    </div>
+    <div class="int-item">
+      <div class="int-name">Flight simulation</div>
+      <div class="int-sub">MSFS &middot; X-Plane. IFR operations on the VATSIM network.</div>
+    </div>
+  </div>
+</section>
+
+<section id="links">
+  <p class="sec">Links</p>
+  <table class="link-table">
+    <tr><td>GitHub</td><td><a href="https://github.com/tetra4rnav" target="_blank" rel="noopener noreferrer">github.com/tetra4rnav</a></td></tr>
+    <tr><td>LinkedIn</td><td><a href="https://www.linkedin.com/in/matt-sak/?locale=ja" target="_blank" rel="noopener noreferrer">linkedin.com/in/matt-sak</a></td></tr>
+  </table>
+</section>
+</main>
+
+<footer>&copy; 2026 Matt Sakamaki. All rights reserved.</footer>
+
+<script>
+  /** Set to `true` to restore light/dark toggle, remove `disabled` from #themeBtn, and persist choice in localStorage. */
+  const THEME_TOGGLE_ENABLED = false;
+
+  const html = document.documentElement;
+  const btn = document.getElementById("themeBtn");
+
+  function apply(t) {
+    html.dataset.theme = t;
+    if (btn) btn.textContent = t === "dark" ? "[ light ]" : "[ dark ]";
+  }
+
+  if (THEME_TOGGLE_ENABLED) {
+    const saved = localStorage.getItem("theme");
+    const sys = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    apply(saved || sys);
+    btn?.removeAttribute("disabled");
+    btn?.removeAttribute("aria-disabled");
+    btn?.removeAttribute("title");
+    btn?.addEventListener("click", () => {
+      const next = html.dataset.theme === "dark" ? "light" : "dark";
+      apply(next);
+      localStorage.setItem("theme", next);
+    });
+  } else {
+    apply("light");
+  }
+</script>
+</body>
+</html>

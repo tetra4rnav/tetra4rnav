@@ -1,8 +1,7 @@
 # Hi there 👋
 
-I'm Matt Sakamaki,MD,MPH, a builder working at the intersection of public health, and digital health, building web products with React, shadcn/ui, and Cloudflare.
-I am commited to creating a foundation, to 
-My work includes authentication, data workflows, and audio/video handling.
+I'm Matt Sakamaki,MD,MPH, a builder working at the intersection of public health, digital health, and software.
+I'm passionate about building data infrastructure and tools that help people work better and live healthier lives. I build web products with React, shadcn/ui, and Cloudflare, with a focus on authentication, data workflows, and audio/video handling.
 I recently founded a company, Diaphana, in the United States.
 
 I am also:
